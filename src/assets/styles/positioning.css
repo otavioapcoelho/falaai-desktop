@@ -1,0 +1,30 @@
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-content-vertical {
+  display: flex;
+  align-items: center;
+}
+
+.right-content {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.left-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}

@@ -1,0 +1,11 @@
+.to-be-shown {
+  opacity: 0;
+  transition: visibility 0s, opacity 0.4s linear;
+  position: absolute;
+}
+
+.to-be-shown.shown {
+  visibility: visible;
+  position: relative;
+  opacity: 1;
+}

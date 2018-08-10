@@ -1,0 +1,31 @@
+.column {
+  height: 100%;
+}
+
+.half-column {
+  width: 5%;
+}
+
+.single-column {
+  width: 10%;
+}
+
+.single-half-column {
+  width: 15%;
+}
+
+.double-column {
+  width: 20%;
+}
+
+.double-half-column {
+  width: 25%;
+}
+
+.triple-column {
+  width: 30%;
+}
+
+.triple-half-column {
+  width: 35%;
+}

@@ -1,0 +1,1 @@
+export const SET_TAB = "STORE_MUTATION_SET_TAB"

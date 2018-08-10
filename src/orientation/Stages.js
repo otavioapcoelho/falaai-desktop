@@ -1,0 +1,5 @@
+export const UNBS = "STAGE_UNBS"
+export const SEGMENTOS = "STAGE_SEGMENTOS"
+export const MIDIA = "STAGE_MIDIA"
+export const MESAS = "STAGE_MESAS"
+export const ENVIO = "STAGE_ENVIO"
