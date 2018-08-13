@@ -17,14 +17,17 @@ export default  new Vuex.Store({
 
   actions: {
     [Action.SET_TAB] : (store, tab) => {
+      store.commit(Mutation.SET_TAB, {tab})
+    },
+    [Action.GO_TO_TAB] : (store, tab) => {
       switch (tab) {
         case Tab.ORIENTATIONS:
+          store.commit(Mutation.SET_TAB, {tab})
           router.push({name: 'Orientation'})
           break;
         default:
           console.error('ERROR ' + tab + ': TAB NOT FOUND')
       }
-      store.commit(Mutation.SET_TAB, tab)
     }
   },
 

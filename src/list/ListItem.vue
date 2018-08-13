@@ -1,13 +1,15 @@
 <template>
   <div class="item" @click="onClick(item)"
+  :style="getTransform"
   :class="{
-    'selected': isSelected
+    'selected': isSelected,
+    'notification': item.notification
     }">
     <div class="primary-info font-md">
       <div class="title text">{{item.title}}</div>
       <div class="subtitle font-sm text">{{item.func}} - {{item.send}}</div>
       <div class="message center-content-vertical font-sm text">
-        <span class="text">{{item.content}}</span>
+        <span class="text">{{index}}{{item.content}}</span>
       </div>
     </div>
     <div class="secondary-info font-sm">
@@ -23,8 +25,15 @@
 
 <script>
 export default {
-  name: "OrientationListItem",
-  props: ['item', 'onClick', 'isSelected']
+  name: "ListItem",
+  props: ['item', 'onClick', 'isSelected', 'index'],
+  computed: {
+    getTransform() {
+      return {
+        transform: `translate3d(0px, ${this.index || 0}00%, 0px)`
+      }
+    }
+  }
 }
 </script>
 
@@ -33,6 +42,14 @@ export default {
 .item {
   padding: 12px 12px 12px 22px;
   box-shadow: 0 0 1px rgba(0,0,0,0.25);
+  width: 100%;
+}
+
+.item {
+  position: absolute;
+  top: ;
+  left: ;
+  transition: all 0.3s ease-out, background-position 1ms;
 }
 
 .item:hover {

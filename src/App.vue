@@ -2,7 +2,7 @@
   <div id="app">
     <custom-navbar
     :selected="tab"
-    :onTabClick='setTab'
+    :onTabClick='goToTab'
     :onHomeClick='goHome'/>
     <div class="router-view-wrapper center-content">
       <router-view/>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setTab: Action.SET_TAB
+      goToTab: Action.GO_TO_TAB
     }),
     goHome: function() {
       this.$router.push({name: 'Home'})

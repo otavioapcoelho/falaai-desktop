@@ -6,7 +6,11 @@
       <div class="content-wrapper four-layer left-content">
         <div class="orientations-list">
           <orientation-list
-          :items="items"/>
+          :items="items"
+          :onClickCallback="clickCallback"
+          additionTitle="Nova Orientação"
+          searchTitle="Buscar Orientações"
+          :isSelectedFn="isSelected"/>
         </div>
         <div class="content">
 
@@ -16,59 +20,39 @@
 </template>
 
 <script>
-import OrientationList from "./OrientationList"
+import List from "@/list/List"
+import {mapGetters, mapActions} from "vuex"
+import store from '@/store'
+import * as NavbarConst from "@/consts/NavbarConst"
+import * as StoreAction from "@/store/StoreActions"
+import * as Getter from "./OrientationGetters"
+import * as Action from "./OrientationActions"
 
 export default {
   name: 'Orientation',
   components: {
-    'orientation-list': OrientationList
+    'orientation-list': List
   },
   data: () => {
     return {
-      items:[{
-        id: 1,
-        title: "Clientes VIP podem solicitar geladeiras para sei la",
-        func: "COODI",
-        send: "Maurício de Souza Junior",
-        content: "Por conta do feriado, as rotas foram alteradas para sei la",
-        hour: "07:00"
-      },{
-        id: 2,
-        title: "Clientes VIP podem solicitar geladeiras para sei la",
-        func: "COODI",
-        send: "Maurício de Souza Junior",
-        content: "Por conta do feriado, as rotas foram alteradas para sei la",
-        hour: "07:00"
-      },{
-        id: 3,
-        title: "Clientes VIP podem solicitar geladeiras para sei la",
-        func: "COODI",
-        send: "Maurício de Souza Junior",
-        content: "Por conta do feriado, as rotas foram alteradas para sei la",
-        hour: "07:00"
-      },{
-        id: 4,
-        title: "Clientes VIP podem solicitar geladeiras para sei la",
-        func: "COODI",
-        send: "Maurício de Souza Junior",
-        content: "Por conta do feriado, as rotas foram alteradas para sei la",
-        hour: "07:00"
-      },{
-        id: 5,
-        title: "Clientes VIP podem solicitar geladeiras para sei la",
-        func: "COODI",
-        send: "Maurício de Souza Junior",
-        content: "Por conta do feriado, as rotas foram alteradas para sei la",
-        hour: "07:00"
-      },{
-        id: 6,
-        title: "Clientes VIP podem solicitar geladeiras para sei la",
-        func: "COODI",
-        send: "Maurício de Souza Junior",
-        content: "Por conta do feriado, as rotas foram alteradas para sei la",
-        hour: "07:00"
-      }]
     }
+  },
+  computed: {
+    ...mapGetters({
+      items: Getter.ITEMS,
+      isSelected: Getter.IS_SELECTED
+    })
+  },
+  methods: {
+    ...mapActions({
+      clickCallback: Action.SELECT_ORIENTATION,
+    })
+  },
+  created: function() {
+    store.dispatch(Action.LOAD_DATA)
+  },
+  mounted: function() {
+    store.dispatch(StoreAction.SET_TAB, NavbarConst.ORIENTATIONS)
   }
 }
 </script>
@@ -88,6 +72,7 @@ export default {
   left: 0;
   width: 100%;
   height: 65px;
+  background-color: white;
   box-shadow: 0 0 1px rgba(0,0,0,0.25);
 }
 
