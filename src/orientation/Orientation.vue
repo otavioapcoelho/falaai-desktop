@@ -10,6 +10,7 @@
           :onClickCallback="clickCallback"
           additionTitle="Nova Orientação"
           searchTitle="Buscar Orientações"
+          :hasAlphabet="true"
           :isSelectedFn="isSelected"/>
         </div>
         <div class="content">

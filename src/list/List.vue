@@ -78,8 +78,16 @@ export default {
   },
   methods: {
     setScroll: function(letter) {
+      if(letter == "#") {
+        document.getElementById('items-container').scrollTop = 0
+        return
+      }
       let item = this.getItems.find(item => item.title.toUpperCase().startsWith(letter.toUpperCase()))
-      document.getElementById('items-container').scrollTop = this.getItems.indexOf(item) * 80
+      if(this.getItems.indexOf(item) == -1 || letter == '!') {
+        document.getElementById('items-container').scrollTop = 999999
+      } else {
+        document.getElementById('items-container').scrollTop = this.getItems.indexOf(item) * 80
+      }
     }
   },
   components: {
