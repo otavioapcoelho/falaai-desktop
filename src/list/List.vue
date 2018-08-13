@@ -1,6 +1,6 @@
 <template>
 <div class="list-wrapper">
-  <div class="actions left-content two-layer">
+  <div class="actions left-content three-layer">
     <div class="action font-md center-content">
       <img src="@/assets/images/plus.svg">
       {{additionTitle}}
@@ -11,14 +11,22 @@
     </div>
   </div>
   <div class="content-wrapper">
-    <div class="alphabet-wrapper two-layer">
-      <div class="letter" v-for="letter in alphabet">
-        {{letter}}
+    <div class="alphabet-wrapper two-layer" v-if="hasAlphabet">
+      <div class="letter center-content" v-for="letter in alphabet"
+      :class="{'focused': isFocused(letter)}">
+        <div class="circle-wrapper center-content two-layer" @click="setScroll(letter)">
+          <div class="circle two-layer center-content">
+            <span>{{letter}}</span>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="items-container">
+    <div id="items-container" class="items-container" @scroll="getOnScrollFn"
+    :class="{
+      'has-alphabet': hasAlphabet
+      }">
       <div class="items-wrapper one-layer">
-        <custom-list-item  v-for="item in getItems" :key="item.id"
+        <custom-list-item v-for="item in getItems" :key="item.id"
         :item="item"
         :index="items.indexOf(item)"
         :isSelected="getIsSelectedFn(item)"
@@ -35,10 +43,11 @@ import ListItem from "./ListItem"
 
 export default {
   name: 'List',
-  props: ['items', 'onClickCallback', 'additionTitle', 'searchTitle', 'isSelectedFn'],
+  props: ['items', 'onClickCallback', 'additionTitle', 'searchTitle', 'isSelectedFn', 'hasAlphabet'],
   data: () => {
     return {
-      alphabet:[...Array(26)].map((val, i) => String.fromCharCode(i + 65))
+      alphabet: ['#', ...[...Array(26)].map((val, i) => String.fromCharCode(i + 65)), '!'],
+      focusedLetter: '#'
     }
   },
   computed: {
@@ -50,6 +59,27 @@ export default {
     },
     getItems() {
       return this.items || []
+    },
+    isFocused() {
+      return letter => letter.toUpperCase() == this.focusedLetter.toUpperCase()
+    },
+    getOnScrollFn() {
+      return event => {
+        if(event.target.scrollTop > 0) {
+          let index = Math.floor(event.target.scrollTop / 80)
+          let item = this.getItems[index]
+          let letter = item.title.slice(0,1)
+          this.focusedLetter = letter
+        } else {
+          this.focusedLetter = '#'
+        }
+      }
+    }
+  },
+  methods: {
+    setScroll: function(letter) {
+      let item = this.getItems.find(item => item.title.toUpperCase().startsWith(letter.toUpperCase()))
+      document.getElementById('items-container').scrollTop = this.getItems.indexOf(item) * 80
     }
   },
   components: {
@@ -69,7 +99,6 @@ export default {
 .actions {
   height: 50px;
   width: 100%;
-  background-color: white;
   box-sizing: border-box;
   position: relative;
   top: 0;
@@ -78,6 +107,7 @@ export default {
 
 .action {
   height: 100%;
+  background-color: white;
   width: 50%;
   color: #2870b2;
   box-shadow: 0 0 1px rgba(0,0,0,0.25);
@@ -106,12 +136,16 @@ export default {
 
 .items-container {
   height: 100%;
-  width: 95%;
+  width: 100%;
   box-sizing: border-box;
   overflow-y: scroll;
   overflow: auto;
   position: absolute;
   top: 50px;
+}
+
+.items-container.has-alphabet {
+  width: 95%;
   left: 5%;
 }
 
@@ -122,8 +156,7 @@ export default {
 
 .alphabet-wrapper {
   position: relative;
-  top: 50px;
-  left: 0;
+  box-shadow: 0 0 1px rgba(0,0,0,0.25);
   width: 5%;
   height: 100%;
   padding: 1% 0;
@@ -132,6 +165,41 @@ export default {
 .letter {
   height: 3.5%;
   width: 100%;
+  display: block;
+  font-size: 10px;
+}
+
+.letter-div {
+  height: 100%;
+  width: 100%;
+  font-weight: bold;
+}
+
+.letter.focused {
+  color: red;
+}
+
+.circle-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.circle-wrapper:hover {
+  cursor: pointer;
+}
+
+.circle {
+  border-radius: 18px;
+  box-shadow: 0 0 2px #888;
+  height: 13px;
+  display: block;
+  width: 13px;
+}
+
+.focused .circle {
+  background-color: #e7f0f7;
+  color: #3b5897;
+  border: #6197c6;
 }
 
 .item {
