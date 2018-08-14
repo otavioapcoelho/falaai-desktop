@@ -14,15 +14,15 @@ export const loadChannels = () => {
       content: "Por conta do feriado, as rotas foram alteradas para sei la",
       hour: "07:00"
     },{
-      id: 2,
-      title: "BClientes VIP ptesteodem solicitar geladeiras para sei la",
+      id: 3,
+      title: "CClientes VIP potestedem solicitar geladeiras para sei la",
       func: "COODI",
       send: "Maurício de Souza Junior",
       content: "Por conta do feriado, as rotas foram alteradas para sei la",
       hour: "07:00"
     },{
-      id: 3,
-      title: "CClientes VIP potestedem solicitar geladeiras para sei la",
+      id: 2,
+      title: "BClientes VIP ptesteodem solicitar geladeiras para sei la",
       func: "COODI",
       send: "Maurício de Souza Junior",
       content: "Por conta do feriado, as rotas foram alteradas para sei la",

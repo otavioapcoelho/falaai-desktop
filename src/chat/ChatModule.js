@@ -13,7 +13,14 @@ export default {
 
   actions: {
     [Action.LOAD_DATA] : store => {
-      Service.loadChannels().then(data => store.commit(Mutation.LOAD_CHANNELS, {data}))
+      Service.loadChannels().then(data => {
+        store.commit(Mutation.LOAD_CHANNELS, {data: data.sort((a, b) => {
+          if(b.title > a.title) {
+            return -1
+          }
+          return 1
+        })})
+      })
       Service.loadContacts().then(data => store.commit(Mutation.LOAD_CONTACTS, {data}))
     },
     [Action.SELECT_CHANNEL] : (store, channel) => {

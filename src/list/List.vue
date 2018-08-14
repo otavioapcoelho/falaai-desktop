@@ -86,7 +86,7 @@ export default {
       return event => {
         if(event.target.scrollTop > 0) {
           let index = Math.floor(event.target.scrollTop / 80)
-          let item = this.getItems[index]
+          let item = this.filteredItems ? this.filteredItems[index] : this.getItems[index]
           let letter = item.title.slice(0,1)
           this.focusedLetter = letter
         } else {
@@ -101,11 +101,13 @@ export default {
         document.getElementById('items-container').scrollTop = 0
         return
       }
-      let item = this.getItems.find(item => item.title.toUpperCase().startsWith(letter.toUpperCase()))
-      if(this.getItems.indexOf(item) == -1 || letter == '!') {
+      let array = this.filteredItems ? this.filteredItems : this.items
+      let item = array.find(item => item.title.toUpperCase().startsWith(letter.toUpperCase()))
+      if(array.indexOf(item) == -1 || letter == '!') {
         document.getElementById('items-container').scrollTop = 999999
       } else {
-        document.getElementById('items-container').scrollTop = this.getItems.indexOf(item) * 80
+        document.getElementById('items-container').scrollTop = array.indexOf(item) * 80
+        this.focusedLetter = letter
       }
     }
   },
