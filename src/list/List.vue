@@ -1,14 +1,16 @@
 <template>
 <div class="list-wrapper">
   <div class="actions left-content three-layer">
-    <div class="action font-md center-content">
-      <img src="@/assets/images/plus.svg">
-      {{additionTitle}}
-    </div>
-    <div class="action font-md center-content">
-      <img src="@/assets/images/search.svg">
-      {{searchTitle}}
-    </div>
+    <slot name="header">
+      <div class="action font-md center-content" @click="additionButtonCallback()">
+        <img src="@/assets/images/plus.svg">
+        {{additionTitle}}
+      </div>
+      <div class="action font-md center-content" @click="searchButtonCallback()">
+        <img src="@/assets/images/search.svg">
+        {{searchTitle}}
+      </div>
+    </slot>
   </div>
   <div class="content-wrapper">
     <div class="alphabet-wrapper two-layer" v-if="hasAlphabet">
@@ -30,7 +32,8 @@
         :item="item"
         :index="items.indexOf(item)"
         :isSelected="getIsSelectedFn(item)"
-        :onClick="getCallback"/>
+        :onClick="getCallback"
+        :filteredIndex="getFilteredIndex(item)"/>
       </div>
     </div>
   </div>
@@ -43,7 +46,15 @@ import ListItem from "./ListItem"
 
 export default {
   name: 'List',
-  props: ['items', 'onClickCallback', 'additionTitle', 'searchTitle', 'isSelectedFn', 'hasAlphabet'],
+  props: ['items',
+  'filteredItems',
+  'onClickCallback',
+  'additionTitle',
+  'searchTitle',
+  'isSelectedFn',
+  'hasAlphabet',
+  'searchButtonCallback',
+  'additionButtonCallback'],
   data: () => {
     return {
       alphabet: ['#', ...[...Array(26)].map((val, i) => String.fromCharCode(i + 65)), '!'],
@@ -62,6 +73,14 @@ export default {
     },
     isFocused() {
       return letter => letter.toUpperCase() == this.focusedLetter.toUpperCase()
+    },
+    getFilteredIndex() {
+      return item => {
+        if(this.filteredItems) {
+            return this.filteredItems.indexOf(item)
+        }
+        return this.items.indexOf(item)
+      }
     },
     getOnScrollFn() {
       return event => {
@@ -149,7 +168,8 @@ export default {
   overflow-y: scroll;
   overflow: auto;
   position: absolute;
-  top: 50px;
+  top: 0;
+  padding-top: 50px;
 }
 
 .items-container.has-alphabet {

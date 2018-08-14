@@ -5,6 +5,12 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+if (!String.prototype.includes) {
+  String.prototype.includes = function() {'use strict';
+    return String.prototype.indexOf.apply(this, arguments) !== -1;
+  };
+}
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

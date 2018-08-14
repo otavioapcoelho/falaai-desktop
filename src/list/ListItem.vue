@@ -26,11 +26,13 @@
 <script>
 export default {
   name: "ListItem",
-  props: ['item', 'onClick', 'isSelected', 'index'],
+  props: ['item', 'onClick', 'isSelected', 'index', 'filteredIndex'],
   computed: {
     getTransform() {
       return {
-        transform: `translate3d(0px, ${this.index || 0}00%, 0px)`
+        transform: `translate3d(0px, ${this.filteredIndex != -1 ? this.filteredIndex :  this.index || 0}00%, 0px)`,
+        visibility: this.filteredIndex == -1 ? 'hidden' : 'visible',
+        opacity: this.filteredIndex == -1 ? 0 : 1
       }
     }
   }
@@ -49,7 +51,7 @@ export default {
   position: absolute;
   top: ;
   left: ;
-  transition: all 0.3s ease-out, background-position 1ms;
+  transition: all 0.4s ease-out, background-position 1ms, visibility 0.3s ease-out, opacity 0.3s ease-out;
 }
 
 .item:hover {

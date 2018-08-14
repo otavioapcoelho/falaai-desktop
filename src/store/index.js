@@ -6,6 +6,7 @@ import Vue from 'vue'
 import * as Tab from '../consts/NavbarConst'
 import router from '../router/index'
 import OrientationModule from '@/orientation/OrientationModule'
+import ChatModule from '@/chat/ChatModule'
 
 Vue.use(Vuex)
 
@@ -24,7 +25,11 @@ export default  new Vuex.Store({
         case Tab.ORIENTATIONS:
           store.commit(Mutation.SET_TAB, {tab})
           router.push({name: 'Orientation'})
-          break;
+          break
+        case Tab.CHAT:
+          store.commit(Mutation.SET_TAB, {tab})
+          router.push({name: 'Chat'})
+          break
         default:
           console.error('ERROR ' + tab + ': TAB NOT FOUND')
       }
@@ -40,7 +45,8 @@ export default  new Vuex.Store({
   },
 
   modules: {
-    OrientationModule
+    OrientationModule,
+    ChatModule
   }
 
 })

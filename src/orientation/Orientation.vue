@@ -10,7 +10,6 @@
           :onClickCallback="clickCallback"
           additionTitle="Nova Orientação"
           searchTitle="Buscar Orientações"
-          :hasAlphabet="true"
           :isSelectedFn="isSelected"/>
         </div>
         <div class="content">
@@ -94,8 +93,9 @@ export default {
 .content {
   height: 100%;
   width: 70%;
-  border-bottom: 5px solid blue;
   box-sizing: border-box;
+  padding: 30px;
+  background-color: #f4f5f8;
 }
 
 </style>

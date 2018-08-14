@@ -1,0 +1,2 @@
+export const ITEMS = "CHAT_GETTER_ITEMS"
+export const IS_SELECTED = "CHAT_GETTER_IS_SELECTED"
